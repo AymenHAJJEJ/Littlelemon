@@ -1,22 +1,25 @@
-from django.urls import path
-from . import views
+from django.contrib import admin
+from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
+
+# Import DRF routers and viewsets
 from rest_framework.routers import DefaultRouter
-from .views import BookingViewSet
+from restaurant.views import BookingViewSet
 
-# DRF router for API endpoints
+# Set up DRF router
 router = DefaultRouter()
-router.register(r'bookings', BookingViewSet, basename='bookings')
+router.register(r'bookings', BookingViewSet)
 
-# HTML page routes (non-API)
 urlpatterns = [
-    path('', views.home, name="home"),
-    path('about/', views.about, name="about"),
-    path('book/', views.book, name="book"),
-    path('reservations/', views.reservations, name="reservations"),
-    path('menu/', views.menu, name="menu"),
-    path('menu_item/<int:pk>/', views.display_menu_item, name="menu_item"),  
-    path('bookings/', views.bookings, name='bookings'),  # custom JSON booking handler
+    path('admin/', admin.site.urls),
+    path('', include('restaurant.urls')),
+    path('api/', include(router.urls)),  # Now includes /api/bookings/
+    path('api/', include('djoser.urls')),  # User registration etc.
+    path('api/auth/', include('djoser.urls.authtoken')),  # Login/logout with tokens
 ]
 
-# DRF API endpoints (/api/bookings/) exposed in project urls.py
-api_urlpatterns = router.urls
+# Serve static and media files during development
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATICFILES_DIRS[0])
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
