@@ -1,0 +1,165 @@
+/* Reset and base styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  color: #2f4f2f; /* dark green */
+  background-color: #f0f8f0; /* light greenish */
+}
+
+/* Header */
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+  background-color: #3a6b35; /* medium green */
+  color: white;
+}
+
+.logo {
+  max-height: 60px;
+}
+
+nav ul {
+  display: flex;
+  list-style: none;
+  gap: 2rem;
+}
+
+nav a {
+  position: relative;
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+nav a::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -4px;
+  left: 0;
+  background-color: white;
+  transition: width 0.3s ease;
+}
+
+nav a:hover,
+nav a:focus {
+  color: #d9ead3;
+}
+
+nav a:hover::after,
+nav a:focus::after {
+  width: 100%;
+}
+
+/* Main content */
+main {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+.promo-banner {
+  background: url('images/garden-banner.jpg') center/cover no-repeat;
+  color: white;
+  padding: 4rem 2rem;
+  text-align: center;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+.promo-banner h1,
+.promo-banner p {
+  opacity: 0;
+  animation: fadeIn 1.5s forwards;
+}
+
+.promo-banner p {
+  animation-delay: 0.7s;
+}
+
+.promo-banner h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.services-columns {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+.services-columns article {
+  background-color: white;
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: 0 0 5px rgba(47,79,47,0.3);
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.services-columns article:hover {
+  transform: translateY(-5px) scale(1.05);
+  box-shadow: 0 8px 15px rgba(47, 79, 47, 0.4);
+}
+
+.services-columns img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 5px;
+  margin-bottom: 1rem;
+}
+
+/* Footer */
+footer {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  background-color: #3a6b35;
+  color: white;
+  padding: 1rem 2rem;
+  align-items: center;
+  margin-top: 3rem;
+}
+
+.footer-logo img {
+  max-height: 40px;
+}
+
+.footer-info {
+  font-size: 0.9rem;
+  text-align: right;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .services-columns {
+    grid-template-columns: 1fr;
+  }
+
+  footer {
+    grid-template-columns: 1fr;
+    text-align: center;
+    gap: 1rem;
+  }
+
+  .footer-info {
+    text-align: center;
+  }
+}
+
+/* Animations */
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
